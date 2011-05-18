@@ -13,7 +13,7 @@ module Poodle
     end
 
     def gem(gem_name, options = { })
-      Kernel.require(options[:require] || gem_name)
+      require(options[:require] || gem_name)
     end
 
     def source(url)

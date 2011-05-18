@@ -1,6 +1,6 @@
 module Poodle
 
-  class Cli
+  class CLI
 
     def initialize(args)
 
@@ -28,8 +28,8 @@ module Poodle
 
 
     def install
-      gemfile = @options[:gemfile] ? @options[:gemfile] : File.dirname(__FILE__) + "/Gemfile"
-      poodle = Poodle::Install.new(gemfile)
+      gemfile = @options[:gemfile] ? @options[:gemfile] : Dir.pwd + "/Gemfile"
+      poodle = Poodle::Installer.new(gemfile)
       poodle.execute_gemfile
     end
     
