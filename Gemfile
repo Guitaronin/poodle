@@ -8,7 +8,7 @@ source "http://rubygems.org"
 
 gem "pdf-writer", :require => "pdf/writer"
 gem "pg"
-gem "activesupport"
+gem "activesupport", :require => "active_support"
 gem "jeweler"
 gem "rcov"
 
