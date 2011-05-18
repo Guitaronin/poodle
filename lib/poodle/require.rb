@@ -1,27 +1,10 @@
 module Poodle
 
-  class Require
-
-    def initialize(gemfile)
-      @gemfile = gemfile
+  class Require < Gemfile
+    def gem(gem_name, version_or_options = { }, options = { })
+      super(gem_name, version_or_options, options)
+      require(@gem_specific_options[:require] || gem_name)
     end
-    
-    def execute_gemfile
-      instance_exec {
-        eval File.read(@gemfile)
-      }
-    end
-
-    def gem(gem_name, options = { })
-      require(options[:require] || gem_name)
-    end
-
-    def source(url)
-    end
-
-    def group(*env)
-    end
-    
   end
   
 end

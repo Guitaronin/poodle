@@ -23,19 +23,39 @@ module Poodle
         opts.on("-e" "--environment", "Install gems from an environment") do |v|
           @options[:environment] = v
         end
+
+        # opts.on("-u", "--update", "Update specific gems or all gems in gemfile") do |v|
+        #   @options[:update] = v
+        # end
+
+        opts.on("-c", "--console", "Open a irb session with your required gems") do |v|
+          @options[:console] = v
+        end
         
       end.parse!
 
       if @options[:install]
         install
+      elsif @options[:console]
+        irb
       end
     end
 
 
     def install
-      gemfile = @options[:gemfile] ? @options[:gemfile] : Dir.pwd + "/Gemfile"
+      gemfile = determine_gemfile_path
       poodle = Poodle::Installer.new(gemfile, @options)
       poodle.execute_gemfile
+    end
+
+    def irb
+      gemfile = determine_gemfile_path
+      poodle  = Poodle::Irb.new(gemfile, @options)
+      poodle.execute_gemfile
+    end
+
+    def determine_gemfile_path
+      @options[:gemfile] ? @options[:gemfile] : File.join(Dir.pwd, "Gemfile")
     end
     
   end

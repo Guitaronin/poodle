@@ -13,7 +13,7 @@ gem "jeweler"
 gem "rcov"
 
 group :blah do
-  gem "test"
+  gem "bundler"
 end
 
 #gem "bundler", :version => "~> 1.0.0"

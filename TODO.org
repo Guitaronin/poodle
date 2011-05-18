@@ -1,0 +1,18 @@
+* Update gems listed in gemfile
+* Cache all gemfiles and their dependencies
+* grab from a git repo that has a gemspec
+* specify sources
+* support options for gemfile:
+  - :git
+  - :branch
+  - :tag
+  - :ref
+  - :path
+  - :group(s)
+  - :submodules
+
+* gem gem_name, version_or_options = {}, options = {}
+* git git_path { stuff }
+* --without-env
+* Poodle.require(*env)
+* Capistrano
