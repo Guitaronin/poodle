@@ -12,6 +12,10 @@ gem "activesupport"
 gem "jeweler"
 gem "rcov"
 
+group :blah do
+  gem "test"
+end
+
 #gem "bundler", :version => "~> 1.0.0"
 #gem "jeweler", :version => "~> 1.5.2"
 #gem "rcov", :version => ">= 0"

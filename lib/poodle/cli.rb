@@ -19,6 +19,11 @@ module Poodle
         opts.on("-d", "--[no]-dry-run", "Just show what is going to happen. (NOT IMPLEMENTED)") do |v|
           @options[:dry_run] = v
         end
+
+        opts.on("-e" "--environment", "Install gems from an environment") do |v|
+          @options[:environment] = v
+        end
+        
       end.parse!
 
       if @options[:install]
@@ -29,7 +34,7 @@ module Poodle
 
     def install
       gemfile = @options[:gemfile] ? @options[:gemfile] : Dir.pwd + "/Gemfile"
-      poodle = Poodle::Installer.new(gemfile)
+      poodle = Poodle::Installer.new(gemfile, @options)
       poodle.execute_gemfile
     end
     

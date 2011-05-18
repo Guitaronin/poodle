@@ -6,8 +6,9 @@ module Poodle
 
     BASE_OPTIONS = { :ri => false, :rdoc => false}
     
-    def initialize(gemfile)
+    def initialize(gemfile, options = { })
       @gemfile = gemfile
+      @options = options
     end
 
     def execute_gemfile
@@ -27,7 +28,7 @@ module Poodle
 
     def group(*env, &block)
       if is_in_env?(env)
-        instance_exec block
+        instance_exec &block
       end
     end
 
@@ -38,9 +39,10 @@ module Poodle
     private
 
     def is_in_env?(env)
-      env.any? { |e| e == ENV["RAILS_ENV"] } ||
-        env.any? { |e| e == ENV["RACK_ENV"] } ||
-        env.any? { |e| e == ENV["POODLE_ENV"] }
+      env.any? { |e| ENV["RAILS_ENV"] && e.to_sym == ENV["RAILS_ENV"].to_sym } ||
+        env.any? { |e| ENV["RACK_ENV"] && e.to_sym == ENV["RACK_ENV"].to_sym } ||
+        env.any? { |e| ENV["POODLE_ENV"] && e.to_sym == ENV["POODLE_ENV"].to_sym } ||
+        env.any? { |e| e == @options[:environment].to_sym }
     end
     
   end
