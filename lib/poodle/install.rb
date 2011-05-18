@@ -17,8 +17,10 @@ module Poodle
       super(gem_name, version_or_options, options)      
       @gem_specific_options = Gem::DependencyInstaller::DEFAULT_OPTIONS.merge(BASE_OPTIONS).merge(@gem_specific_options)
       @dependency_installer = Gem::DependencyInstaller.new(@gem_specific_options)
+      Gem::Command.build_args = @gem_specific_options[:build_args]
       @dependency_installer.install(gem_name, @gem_specific_options)
-    end  
+      Gem::Command.build_args = nil
+    end
   end
-  
+
 end
