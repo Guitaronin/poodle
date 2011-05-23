@@ -3,14 +3,18 @@ module Poodle
   class Gemfile
 
     # The gemfile is the path to the Gemfile. 'options' is a global user provided set of options.    
-    def initialize(gemfile, options)
+    def initialize(gemfile, options = { })
       @gemfile = gemfile
       @user_options = options
     end
 
     def execute_gemfile
       instance_exec {
-        eval File.read(@gemfile)
+        begin
+          eval @gemfile
+        rescue
+          eval File.read(@gemfile)
+        end
       }
     end
 
@@ -23,12 +27,11 @@ module Poodle
       else
         options.merge!(version_or_options)
       end
-
+      
       options[:generate_ri] = options.delete(:ri) if options[:ri]
       options[:generate_rdoc] = options.delete(:rdoc) if options[:rdoc]
 
       @gem_specific_options = options.merge(@user_options)
-      
     end
 
     # Run commands within a specific environment. Any number of environments, listed
