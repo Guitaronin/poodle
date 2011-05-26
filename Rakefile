@@ -1,21 +1,14 @@
 require 'rubygems'
 require 'rake'
 
-require 'jeweler'
-Jeweler::Tasks.new do |gem|
-  # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "poodle"
-  gem.homepage = "http://github.com/bolsen/poodle"
-  gem.license = "MIT"
-  gem.summary = %Q{Dead simple gem management}
-  gem.description = %Q{Like Bundler, but tries to be as simple as possible, depending on other tools like RubyGems and RVM to install and load gems.}
-  gem.email = "brian@bolsen.org"
-  gem.authors = ["Brian Olsen"]
-  gem.version = "0.0.1"
-  # Include your dependencies below. Runtime dependencies are required when using your gem,
-  # and development dependencies are only needed for development (ie running rake tasks, tests, etc)
+task :build do
+  gemspec = Gem::Specification.load(File.expand_path("./poodle.gemspec"))
+  @file = Gem::Builder.new(gemspec).build
 end
-Jeweler::RubygemsDotOrgTasks.new
+
+task :install => [:build] do
+  Gem::Installer.new(@file).install
+end
 
 require 'rake/testtask'
 Rake::TestTask.new(:test) do |test|
