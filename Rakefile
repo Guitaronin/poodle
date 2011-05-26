@@ -1,4 +1,5 @@
 require 'rubygems'
+require 'rubygems/installer'
 require 'rake'
 
 task :build do
